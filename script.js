@@ -186,23 +186,12 @@ var onDragStart = function (source, piece, position, orientation) {
     }
 };
 
-var makeBestMove = function () {
-    var bestMove = getBestMove(game);
-    game.ugly_move(bestMove);
-    board.position(game.fen());
-    renderMoveHistory(game.history());
-    if (game.game_over()) {
-        alert('Game over');
-    }
-};
-
-
 var positionCount;
 var getBestMove = function (game) {
     if (game.game_over()) {
-        alert('Game over');
+        finJuego()
+        alert('Horrible amigos!');
     }
-
     positionCount = 0;
     var depth = parseInt($('#search-depth').find(':selected').text());
 
@@ -228,14 +217,31 @@ var renderMoveHistory = function (moves) {
 
 };
 
-var onDrop = function (source, target) {
-    var puntajePrevio = evaluateBoard(game.board())
+var makeBestMove = function () {
+    var eval1 = evaluateBoard(game.board())
+    var bestMove = getBestMove(game);
+    game.ugly_move(bestMove);
+    board.position(game.fen());
+    renderMoveHistory(game.history());
+    var eval2 = evaluateBoard(game.board())
+    comentarDiferencia('cpu', eval1, eval2)
+    if (game.game_over()) {
+        finJuego()
+        alert('Horrible amigos!');
+    }
+};
 
+
+var onDrop = function (source, target) {
+    var eval1 = evaluateBoard(game.board())
     var move = game.move({
         from: source,
         to: target,
         promotion: 'q'
     });
+    var eval2 = evaluateBoard(game.board())
+
+    console.log('EVAL', eval1, eval2)
 
     removeGreySquares();
     if (move === null) {
@@ -243,15 +249,11 @@ var onDrop = function (source, target) {
         return 'snapback';
     }
 
-    huboMovimiento(puntajePrevio, source, target)
+    comentarMovimiento(source, target)
+    comentarDiferencia('user', eval1, eval2)
 
     renderMoveHistory(game.history());
     window.setTimeout(makeBestMove, 250);
-    window.setTimeout(function () {
-        var nuevoPuntaje = evaluateBoard(game.board())
-        huboRespuesta(puntajePrevio, nuevoPuntaje)
-    }, 280);
-    
 };
 
 var onSnapEnd = function () {
@@ -302,3 +304,5 @@ var cfg = {
     onSnapEnd: onSnapEnd
 };
 board = ChessBoard('board', cfg);
+
+iniciarPartida()
