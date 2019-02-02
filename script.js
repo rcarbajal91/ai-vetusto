@@ -260,25 +260,6 @@ var onSnapEnd = function () {
     board.position(game.fen());
 };
 
-var onMouseoverSquare = function(square, piece) {
-    var moves = game.moves({
-        square: square,
-        verbose: true
-    });
-
-    if (moves.length === 0) return;
-
-    greySquare(square);
-
-    for (var i = 0; i < moves.length; i++) {
-        greySquare(moves[i].to);
-    }
-};
-
-var onMouseoutSquare = function(square, piece) {
-    removeGreySquares();
-};
-
 var removeGreySquares = function() {
     $('#board .square-55d63').css('background', '');
 };
@@ -299,8 +280,6 @@ var cfg = {
     position: 'start',
     onDragStart: onDragStart,
     onDrop: onDrop,
-    onMouseoutSquare: onMouseoutSquare,
-    onMouseoverSquare: onMouseoverSquare,
     onSnapEnd: onSnapEnd
 };
 board = ChessBoard('board', cfg);
