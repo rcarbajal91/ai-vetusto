@@ -5,12 +5,17 @@ var ilegal = function() {
     ahhh.play();
 }
 
-var comentar = function(source, target) {
+var huboMovimiento = function (puntajeAnterior, source, target) {
     console.log('Comentar:', source, target)
-    ahhh.play()
+    window.setTimeout(function () {
+        ahhh.play()
+    }, 10);
 }
 
-var huboMovimiento = function (puntajeAnterior, puntajeActual) {
+var huboRespuesta = function (puntajeAnterior, puntajeActual) {
     console.log('Puntaje antes de mover', puntajeAnterior)
     console.log('Nuevo puntaje', puntajeActual)
+    window.setTimeout(function () {
+        ahhh.play()
+    }, 10);
 }

@@ -229,9 +229,7 @@ var renderMoveHistory = function (moves) {
 };
 
 var onDrop = function (source, target) {
-    comentar(source, target)
-
-    var puntajeActual = evaluateBoard(game.board())
+    var puntajePrevio = evaluateBoard(game.board())
 
     var move = game.move({
         from: source,
@@ -245,11 +243,13 @@ var onDrop = function (source, target) {
         return 'snapback';
     }
 
+    huboMovimiento(puntajePrevio, source, target)
+
     renderMoveHistory(game.history());
     window.setTimeout(makeBestMove, 250);
     window.setTimeout(function () {
         var nuevoPuntaje = evaluateBoard(game.board())
-        huboMovimiento(puntajeActual, nuevoPuntaje)
+        huboRespuesta(puntajePrevio, nuevoPuntaje)
     }, 280);
     
 };
