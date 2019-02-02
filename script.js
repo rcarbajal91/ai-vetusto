@@ -2,7 +2,6 @@ var board,
     game = new Chess();
 
 /*The "AI" part starts here */
-
 var minimaxRoot =function(depth, game, isMaximisingPlayer) {
 
     var newGameMoves = game.ugly_moves();
@@ -182,6 +181,7 @@ var getPieceValue = function (piece, x, y) {
 var onDragStart = function (source, piece, position, orientation) {
     if (game.in_checkmate() === true || game.in_draw() === true ||
         piece.search(/^b/) !== -1) {
+        ilegal()
         return false;
     }
 };
@@ -229,6 +229,9 @@ var renderMoveHistory = function (moves) {
 };
 
 var onDrop = function (source, target) {
+    comentar(source, target)
+
+    var puntajeActual = evaluateBoard(game.board())
 
     var move = game.move({
         from: source,
@@ -238,11 +241,17 @@ var onDrop = function (source, target) {
 
     removeGreySquares();
     if (move === null) {
+        ilegal();
         return 'snapback';
     }
 
     renderMoveHistory(game.history());
     window.setTimeout(makeBestMove, 250);
+    window.setTimeout(function () {
+        var nuevoPuntaje = evaluateBoard(game.board())
+        huboMovimiento(puntajeActual, nuevoPuntaje)
+    }, 280);
+    
 };
 
 var onSnapEnd = function () {
