@@ -60,9 +60,11 @@ var comentarDiferencia = function (player, eval1, eval2) {
             if (player == 'cpu') {
                 console.log('MUY BUENA')
                 reproducir('audios/+1/Ahi va viejo.wav')
+                console.log('historico', deltaHistory)
             } else {
                 console.log('HORRIBLE')
                 reproducir('audios/-3/Quizas haya sido una entrega tipo alpha cero.wav')
+                console.log('historico', deltaHistory)
             }
         }
     }
@@ -72,9 +74,11 @@ var comentarDiferencia = function (player, eval1, eval2) {
             if (player == 'cpu') {
                 console.log('buena')
                 reproducir('audios/+2/Miralo.wav')
+                console.log('historico', deltaHistory)
             } else {
                 console.log('mala')
                 reproducir('audios/-3/Y esa la vio 2.wav')
+                console.log('historico', deltaHistory)
             }
         }
     }
@@ -83,8 +87,10 @@ var comentarDiferencia = function (player, eval1, eval2) {
         if (jugadaActual == 'horrible') {
             if (player == 'cpu') {
                 console.log('posiblemente horrible...')
+                console.log('historico', deltaHistory)
             } else {
                 console.log('posiblemente buena...')
+                console.log('historico', deltaHistory)
             }
         }
     }
