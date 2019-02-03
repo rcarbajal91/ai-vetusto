@@ -190,7 +190,6 @@ var positionCount;
 var getBestMove = function (game) {
     if (game.game_over()) {
         finJuego()
-        alert('Horrible amigos!');
     }
     positionCount = 0;
     var depth = parseInt($('#search-depth').find(':selected').text());
@@ -227,7 +226,6 @@ var makeBestMove = function () {
     comentarDiferencia('cpu', eval1, eval2)
     if (game.game_over()) {
         finJuego()
-        alert('Horrible amigos!');
     }
 };
 
@@ -240,8 +238,6 @@ var onDrop = function (source, target) {
         promotion: 'q'
     });
     var eval2 = evaluateBoard(game.board())
-
-    console.log('EVAL', eval1, eval2)
 
     removeGreySquares();
     if (move === null) {
